@@ -1,6 +1,8 @@
 const asyncHandler = require('express-async-handler');
 const Chat = require('../models/Chat');
 const User = require('../models/User');
+const Message = require('../models/Message');
+
 
 const accessChat = asyncHandler(async (req, res) => {
     const { userId } = req.body; 
@@ -53,12 +55,12 @@ if (isChat.length > 0) {
     }
     catch (error) {
         res.status(400)
-        console.log(error);
+        console.log(error.message);
     }
 }
 
 
-})
+}) 
 
 
 // results is undefined

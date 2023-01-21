@@ -10,7 +10,7 @@ const cors = require('cors');
 dotenv.config();
 
 const ENV = process.env;
-const PORT = ENV.PORT || 5007;
+const PORT = ENV.PORT || 5009;
 connectDB();
 
 app.use('/api', cors());

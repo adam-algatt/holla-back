@@ -21,7 +21,12 @@ const Login = () => {
   const submitHandler = async(e) => {
     e.preventDefault()
 
-    await login(email, password)
+    try {
+      await login(email, password)
+    } catch (error) {
+      console.error(error.message)
+    }
+ 
   }
        // submit login data to backend
 // const submitHandler = async(e) => {

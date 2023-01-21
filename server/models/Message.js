@@ -20,5 +20,6 @@ const messageModel = mongoose.Schema(
         timestamps: true,
     }
 )
+
 const Message = mongoose.model('Message', messageModel);
 module.exports = Message;
