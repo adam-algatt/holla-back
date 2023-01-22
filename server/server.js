@@ -4,6 +4,7 @@ const app = express();
 const { chats } = require('./data/data');
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
+const messageRoutes = require('./routes/messageRoutes')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
 const cors = require('cors');
@@ -32,5 +33,6 @@ res.send('<h4>API is running</h4>')
 
     app.use('/api/user', userRoutes);
     app.use('/api/chat', chatRoutes);
+    app.use('/api/message', messageRoutes);
 
 app.listen(PORT, console.log(`app listening on port ${PORT}`)); 

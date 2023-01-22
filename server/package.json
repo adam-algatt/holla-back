@@ -16,6 +16,6 @@
   },
   "scripts": {
     "start": "concurrently \"yarn run develop\" \"cd ../client &&yarn start\"",
-    "develop": "nodemon ./server.js"
+    "d": "nodemon ./server.js"
   }
 }
