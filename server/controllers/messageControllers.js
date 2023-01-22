@@ -6,7 +6,7 @@ const Message = require('../models/Message');
 
 const getAllMessages = asyncHandler(async(req, res) => {
 console.log('get all messages callled')
-    try {
+    try { 
     // find Message by chatId supplied in params
       const messages = await Message.find({ chat: req.params.chatId })
         .populate('sender', 'name avatar email')

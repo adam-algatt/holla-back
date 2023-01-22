@@ -54,7 +54,6 @@ try {
 const json = await response.json(); 
 setLoading(false)
 setSearchResult(json)
-console.log(searchResult)
 } catch (error) {
   console.log(error)
 }
@@ -81,7 +80,6 @@ try {
     users: JSON.stringify(selectedUsers.map((u) => u._id)),
   };
   // console.log(selectedUsers)
-  console.log(JSON.stringify(param))
   const response = await fetch(`/api/chat/group`, {
     method: 'POST',
     headers: {
@@ -118,7 +116,7 @@ toast({
 }
 
   const handleGroup = async (newGroupUser) => {
-    console.log('handleGroup', newGroupUser)
+    // console.log('handleGroup', newGroupUser)
     if (selectedUsers.includes(newGroupUser)) {
       toast({
         title: "User already added",

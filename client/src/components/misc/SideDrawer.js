@@ -102,7 +102,7 @@ console.log(error)
   return (
  <>
   <Box
-  d='flex'
+  display='flex'
   justifyContent='space-between'
   alignItems='center'
   bg='white'
@@ -113,7 +113,7 @@ console.log(error)
     hasArrow
     placement='bottom-end'>
     <Button variant='ghost' onClick={onOpen}> 🔎 
-    <Text d={{base: 'none', md: 'flex'}} px='4'>
+    <Text display={{base: 'none', md: 'flex'}} px='4'>
       Search Users
     </Text>
     </Button>

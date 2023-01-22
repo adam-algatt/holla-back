@@ -121,7 +121,6 @@ New Group Chat
       key={`${chat._id}-${chat.name}`}
     >
   {/* check chat logic and below */}
-  {console.log(chat.isGroupChat)}
 <Text>
   {chat.isGroupChat ?
     chat.chatName 
