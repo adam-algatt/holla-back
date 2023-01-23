@@ -21,12 +21,13 @@ console.log('get all messages callled')
 
 
  const sendMessage = asyncHandler(async(req, res) => {
-    const { content, chadId } = req.body;
+    const { content, chatId } = req.body;
+    // console.log(req.body)
     if (!content) {
         console.log('Please enter a message')
         return res.sendStatus(400)
     }
-    if (!chadId) {
+    if (!chatId) {
         console.log('Please select a chat')
         return res.sendStatus(400)
     }
@@ -34,10 +35,11 @@ console.log('get all messages callled')
     let newMessage = {
         sender: req.user._id,
         content: content,
+        chat: chatId,
    }
 
     try {
-      let Message = await Message.create(newMessage);
+      let message = await Message.create(newMessage);
 
       message = await message.populate('sender', 'name pic')
       message = await message.populate('chat')

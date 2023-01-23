@@ -35,8 +35,48 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     const toast = useToast();
 
 
-    const handleRemove = async() => {
+    const handleRemove = async(userToRemove) => {
+      console.log(selectedChat.groupAdmin._id, user._id) 
+      if (user._id !== selectedChat.groupAdmin._id){
+        toast({
+          title: "You need to be a group admin to remove a user!",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        return;
+      }
 
+      try {
+        setLoading(true)
+        const params = {
+          chatId: selectedChat._id,
+          userId: userToRemove._id,
+        }
+        const response = await fetch(`/api/chat/groupremove/`, {
+          method: 'PUT', 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+          },
+          body: JSON.stringify(params),
+        })
+        const json = await response.json();
+        setSelectedChat(json)
+        setFetchAgain(prev => !prev)
+        setLoading(false)
+
+      } catch (error) {
+        toast({
+          title: "Error occured while trying to remove user",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoading(false)
+      }
     }
 
     
@@ -76,13 +116,96 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
     }
 
     
-    const handleAddUser = async() => {
-        
+    const handleAddUser = async(userToAdd) => {
+      if (selectedChat.users.find(u => u._id === userToAdd._id)) {
+        toast({
+          title: "User Already in Group",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+      if (selectedChat.groupAdmin._id !== user._id) {
+        toast({
+          title: "Only Group admins add/remove users",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+      }
+
+      try {
+        setLoading(true)
+        const params = {
+          chatId: selectedChat._id,
+          userId: userToAdd._id,
+        }
+        const response = await fetch(`/api/chat/groupadd/`, {
+          method: 'PUT', 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+          },
+          body: JSON.stringify(params),
+        })
+        const json = await response.json();
+
+        setSelectedChat(json)
+        setFetchAgain(prev => !prev)
+        setLoading(false)
+
+      } catch (error) {
+        toast({
+          title: "Error occured while trying to add user",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoading(false)
+      }
+      setGroupChatName('')
     }
 
     
-    const handleRename = async() => {
-        
+    const handleRename = async(req, res) => {
+        if (!groupChatName) return
+
+        try {
+          setRenameLoading(true)
+          let params = {
+            chatId: selectedChat._id,
+            chatName: groupChatName,
+          }
+
+          const response = await fetch(`/api/chat/rename/`, {
+            method: 'PUT', 
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
+            },
+            body: JSON.stringify(params),
+          })
+          const json = await response.json();
+
+          setSelectedChat(json)
+          setFetchAgain(prev => !prev)
+          setRenameLoading(false)
+        } catch (error) {
+          toast({
+            title: 'Error renaming chat',
+            description: error.response.data.message,
+            status: 'error',
+            duration: 5000,
+            isClosable: true,
+            position: 'bottom',
+          })
+          setRenameLoading(false)
+        }
+        setGroupChatName('')
+
     }
     return (
      <>

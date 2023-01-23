@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useChatContext } from '../../hooks/useChatContext';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { Box, IconButton, Spinner, Text, useToast, FormControl, Input } from '@chakra-ui/react';
@@ -24,14 +24,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       
       try {
         setLoading(true)
-
-        const response = fetch(`/api/message/${selectedChat._id}`, {
+      //  const chatId = selectedChat._id
+      //  console.log(chatId)
+        const  response  = await fetch(`/api/message/${selectedChat._id}`, {
+          method: 'GET',
           headers: {
-            Authorization: `Bearer ${user.token}`
+            'Authorization': `Bearer ${user.token}`
           }
         })
 
-        setMessages(response)
+        const json = await response.json(); 
+
+        setMessages(json)
+        console.log(messages)
         setLoading(false)
       } catch (error) {
         toast({
@@ -45,17 +50,69 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
 
     }
-
+    
     const handleMessageInput = (e) => {
-      const { target, value } = e;
-
-      setNewMessage(value); 
-    }
-
-    const sendMessage = async() => {
+      setNewMessage(e.target.value); 
 
     }
 
+    const sendMessage = async(e) => {
+      if (e.key !== 'Enter' || !newMessage) return;
+      // let param = {
+      //   name: groupChatName,
+      //   // ensuring both the inner array and param object are stringified
+      //   users: JSON.stringify(selectedUsers.map((u) => u._id)),
+      // };
+      // // console.log(selectedUsers)
+      // const response = await fetch(`/api/chat/group`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-type': 'application/json',
+      //     'Authorization': `Bearer ${user.token}`
+      //   },
+      //   body: JSON.stringify(param)
+        
+      // })
+    // add new chat to the front of chat state
+    // setChats(prev => [response, ...prev])
+    // // close modal
+    // onClose()
+      try {
+        setLoading(true)
+        const params = {
+          content: newMessage,
+          chatId: selectedChat._id,
+        }
+        
+        setNewMessage('')
+        console.log(selectedChat._id)
+        console.log(params)
+        const response = await fetch(`/api/message`, {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${user.token}`
+          },
+          body: JSON.stringify(params)
+        })
+        const json = await response.json();
+        setMessages(prev => [ json, ...prev ])
+      } catch (error) {
+        // toast({
+        //   title: 'New Group Chat Created!',
+        //   status: 'success',
+        //   duration: 5000,
+        //   isClosable: true,
+        //   position: 'bottom'
+        // })
+        console.log('failed to send message', '\n', error)
+      }
+
+      setLoading(false)
+    }
+    useEffect(() => {
+      fetchMessages()
+      }, [selectedChat]);
     return (
       <>
       {selectedChat ? (
@@ -135,6 +192,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         bg='#E0E0E0'
         placeholder='Enter a message...'
         onChange={handleMessageInput}
+        value={newMessage}
         />
       </FormControl>
       </Box>

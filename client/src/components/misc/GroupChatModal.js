@@ -60,8 +60,7 @@ setSearchResult(json)
 }
 
  const handleSubmit = async (e) => {
-//  const { _id, name, email, password } = user; 
-  // setSelectedUsers(prev => [...prev, {_id: _id, name: name, email: email, password: password}]);
+
   console.log('hello from the new group chat button')
 if(!groupChatName || !selectedUsers) {
   toast({
@@ -89,9 +88,11 @@ try {
     body: JSON.stringify(param)
     
   })
+  const json = await response.json()
 // add new chat to the front of chat state
-setChats(prev => [response, ...prev])
+setChats(prev => [json, ...prev])
 // close modal
+// setFetchAgain(prev => !prev)
 onClose()
 
 toast({
@@ -169,7 +170,6 @@ toast({
             />
          </FormControl>
          <Box w='100%' display='flex' flexWrap='wrap'>
-         {console.log(selectedUsers)}
         {selectedUsers?.map((u, idx) => (
       
           <UserBadgeItem

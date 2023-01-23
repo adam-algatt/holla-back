@@ -8,7 +8,7 @@ import ChatLoading from './ChatLoading';
 import { getSender } from '../../config/ChatLogic'
 import GroupChatModal from './GroupChatModal'
 
-const MyChats = ({ fetchagain }) => {
+const MyChats = ({ fetchagain, setFetchAgain }) => {
   const  [loggedUser, setLoggedUser] = useState();
   const [loadingChat, setLoadingChat] = useState(false
     );
@@ -83,7 +83,7 @@ fontSize={{base: '24px', lg: '32px'}}
 
 >My Chats
 </Text>
-<GroupChatModal>
+<GroupChatModal fetchagain={fetchagain} setFetchAgain={setFetchAgain}>
 <Button
 display='flex'
 paddingX={{base: 'none', md: 1, lg: 2}}
