@@ -37,6 +37,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
         setMessages(json)
         console.log(messages)
+        // fetchMessages()
         setLoading(false)
       } catch (error) {
         toast({
@@ -58,25 +59,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
     const sendMessage = async(e) => {
       if (e.key !== 'Enter' || !newMessage) return;
-      // let param = {
-      //   name: groupChatName,
-      //   // ensuring both the inner array and param object are stringified
-      //   users: JSON.stringify(selectedUsers.map((u) => u._id)),
-      // };
-      // // console.log(selectedUsers)
-      // const response = await fetch(`/api/chat/group`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-type': 'application/json',
-      //     'Authorization': `Bearer ${user.token}`
-      //   },
-      //   body: JSON.stringify(param)
-        
-      // })
-    // add new chat to the front of chat state
-    // setChats(prev => [response, ...prev])
-    // // close modal
-    // onClose()
+
       try {
         setLoading(true)
         const params = {
@@ -177,6 +160,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           flexDir='column'
           overflowY='scroll'
           scrollbar-width='none'
+          w='100%'
+          h='100%'
           >
             <ScrollableChat messages={messages}/>
           </Box>

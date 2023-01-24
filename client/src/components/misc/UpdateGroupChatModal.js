@@ -77,6 +77,7 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
         });
         setLoading(false)
       }
+      fetchMessages();
     }
 
     
