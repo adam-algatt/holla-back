@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "holla-back-backend",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -12,7 +12,8 @@
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.3",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "socket.io": "^4.5.4"
   },
   "scripts": {
     "start": "concurrently \"yarn run d\" \"cd ../client &&yarn start\"",

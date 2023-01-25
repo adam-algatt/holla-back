@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios';
+import React, { useState } from 'react'
 import ChatBox from '../components/misc/ChatBox';
 import MyChats from '../components/misc/MyChats';
 import SideDrawer from '../components/misc/SideDrawer';
-import { Container, Box, Text, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { useAuthContext } from '../hooks/useAuthContext';
 
 const Chats = () => {

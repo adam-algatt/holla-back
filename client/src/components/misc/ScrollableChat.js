@@ -8,7 +8,7 @@ import { isSameSender, isLastMessage } from '../../config/ChatLogic'
 const ScrollableChat = ({ messages }) => {
 const { user } = useAuthContext()
 // const { messages } = useChatContext(); 
-console.log(messages)
+
   return (
     <ScrollableFeed>
       {messages && messages.map((m, idx) => (

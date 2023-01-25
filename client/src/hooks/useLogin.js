@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 
 export const useLogin = () => {
-    const [ show, setShow] = useState(false); 
-    const [ email, setEmail] = useState(''); 
+    // const [ show, setShow] = useState(false); 
+    // const [ email, setEmail] = useState(''); 
     const [ error, setError] = useState(''); 
-    const [ password, setPassword] = useState(''); 
+    // const [ password, setPassword] = useState(''); 
     const [loading, setLoading] = useState(false);
     const { dispatch } = useAuthContext()
 

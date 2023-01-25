@@ -1,7 +1,7 @@
 import { FormLabel, FormControl} from '@chakra-ui/form-control'
 import { VStack } from '@chakra-ui/layout'
 import { Input, InputGroup, InputRightElement } from '@chakra-ui/input'
-import { Button, useToast } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 import { useHistory } from "react-router-dom";
 import React, { useState } from 'react';
 import { useLogin } from '../../hooks/useLogin';
@@ -13,8 +13,8 @@ const Login = () => {
 
   const {login, error, loading} = useLogin()
 
-  const toast = useToast(); 
-  const history = useHistory(); 
+
+
 
 
 

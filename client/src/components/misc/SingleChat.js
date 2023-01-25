@@ -7,6 +7,12 @@ import { getSender, getSenderProfile } from '../../config/ChatLogic';
 import  ProfileModal from './ProfileModal';
 import ScrollableChat from './ScrollableChat';
 import UpdateGroupChatModal from './UpdateGroupChatModal';
+import { io } from 'socket.io-client'
+// server address
+const ENDPOINT = 'http://localhost:5005/';
+
+var selectedChatCompare; 
+var socket = io(ENDPOINT)
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { selectedChat, setSelectedChat } = useChatContext();
@@ -14,7 +20,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [loading, setLoading] = useState(false)
   const [newMessage, setNewMessage] = useState('')
   const [messages, setMessages] = useState([])
-
+  const [socketConnected, setSocketConnected] = useState(false)
     const toast = useToast(); 
     //returns other users name as chat title when clicking on a one-to-one 
     // chat
@@ -36,9 +42,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         const json = await response.json(); 
 
         setMessages(json)
-        console.log(messages)
+   
         // fetchMessages()
         setLoading(false)
+        socket.emit('join chat', selectedChat._id);
       } catch (error) {
         toast({
           title: 'Error',
@@ -93,6 +100,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
       setLoading(false)
     }
+
+    useEffect(() => {
+      socket.on('connect', () => {
+        socket.send('hello');
+        socket.emit('setup', user)
+        socket.on('connection', () => {
+          setSocketConnected(true)
+        })
+        console.log(`connected at ${ socket }`);
+      });
+      console.log({ socket });
+    }, []);
+
     useEffect(() => {
       fetchMessages()
       }, [selectedChat]);
