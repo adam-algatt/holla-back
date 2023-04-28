@@ -3,7 +3,7 @@ import ScrollableFeed from 'react-scrollable-feed'
 import { Box, Tooltip, Avatar, Text } from '@chakra-ui/react'
 // import { useChatContext } from '../../hooks/useChatContext'
 import { useAuthContext } from '../../hooks/useAuthContext'
-import { isSameSender, isLastMessage } from '../../config/ChatLogic'
+import { isSameSender, isLastMessage, isSameUser } from '../../config/ChatLogic'
 
 const ScrollableChat = ({ messages }) => {
 const { user } = useAuthContext()
@@ -11,10 +11,11 @@ const { user } = useAuthContext()
 
   return (
     <ScrollableFeed>
-      {messages && messages.map((m, idx) => (
-        <Box display='flex' key={m._id}>
-          {(isSameSender(messages, m, idx, user._id)
-          || isLastMessage(messages, idx, user._id)
+      {messages && 
+        messages.map((m, idx) => (
+        <Box display='flex' key={`${m._id}-${new Date()}`}
+        style={{overflowX: 'hidden', overflowY: 'hidden', scrollbarWidth: 'none'}}>
+          {(isSameSender(messages, m, idx, user._id) || isLastMessage(messages, idx, user._id)
       ) && (
         <Tooltip
           label={m.sender.name}

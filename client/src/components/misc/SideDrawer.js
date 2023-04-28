@@ -8,6 +8,7 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 import ChatLoading from './ChatLoading';
 import ProfileModal from './ProfileModal';
 import { useChatContext } from '../../hooks/useChatContext';
+
 const SideDrawer = () => {
   const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState([]);

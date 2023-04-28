@@ -13,7 +13,7 @@ ReactDOM.render(
  
   
     <AuthContextProvider>
-        <ChatContextProvider>
+    <ChatContextProvider>
      <BrowserRouter>
     <ChakraProvider>
         <App />

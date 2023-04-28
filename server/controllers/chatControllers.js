@@ -113,6 +113,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
             .populate('groupAdmin', '-password')
             console.log('line 110')
             res.status(200).json(groupChatRes);
+            
     } catch (error) {
         console.log('inside catch')
         console.log(error)

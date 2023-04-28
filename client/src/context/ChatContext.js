@@ -5,6 +5,7 @@ export const ChatContext = createContext();
 
 const ChatProvider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState();
+  const [prevchat, setPrevchat] = useState(); 
   const [notification, setNotification] = useState([]);
   const [chats, setChats] = useState([]);
 
@@ -20,6 +21,8 @@ const ChatProvider = ({ children }) => {
         setNotification,
         chats,
         setChats,
+        prevchat, 
+        setPrevchat
       }}
     >
       {children}

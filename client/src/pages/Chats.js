@@ -9,7 +9,6 @@ const Chats = () => {
   const {user} = useAuthContext()
 const [fetchAgain, setFetchAgain] = useState(false);
 
-  console.log('chats component running')
   return (
     <div style={{width: '100%'}}>
  {user && <SideDrawer/>}
